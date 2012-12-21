@@ -12,7 +12,7 @@ redisClient.on("error", function(err){
 mongoose.connect('localhost', 'hn');
 
 var NewsSchema = mongoose.Schema({
-	id: String,
+	id: {type: String, unique: true},
 	title: String,
 	url: String,
 	domain: String,
