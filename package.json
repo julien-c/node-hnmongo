@@ -1,0 +1,18 @@
+{
+  "name": "node-hnmongo",
+  "version": "0.1.0",
+  "description": "Feed HN into Mongo",
+  "main": "server.js",
+  "dependencies": {
+    "redis": "~0.8.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "gitHead": "802b4d3e45ea33675d3d8dad2570f2a8a4ed55ac"
+}
