@@ -1,6 +1,7 @@
 
 var redis = require('redis'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	http = require('http');
 
 
 var redisClient = redis.createClient();
@@ -27,6 +28,12 @@ var News = mongoose.model('News', NewsSchema);
 
 
 setInterval(function(){
+	http.get("http://localhost:8888/news", function(res) {
+		console.log("Got response: " + res.statusCode);
+	}).on('error', function(e) {
+		console.log("Got error: " + e.message);
+	});
+	
 	redisClient.get('news', function(err, result){
 		if (result){
 			var news = JSON.parse(result);
