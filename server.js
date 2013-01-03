@@ -1,7 +1,7 @@
 
-var redis = require('redis'),
-	mongoose = require('mongoose'),
-	http = require('http');
+var redis = require('redis');
+var mongoose = require('mongoose');
+var http = require('http');
 
 
 var redisClient = redis.createClient();
@@ -35,12 +35,14 @@ setInterval(function(){
 	});
 	
 	redisClient.get('news', function(err, result){
-		if (result){
+		if (result) {
 			var news = JSON.parse(result);
 			console.log(news.length);
-			news.forEach(function(item){
-				new News(item).save();
-			});
+			
+			
+			// news.forEach(function(item){
+			// 	new News(item).save();
+			// });
 		}
 		else {
 			// If there isn't anything (i.e. the TTL for the Redis value has expired), 
@@ -48,7 +50,7 @@ setInterval(function(){
 			console.log('ERR');
 		}
 	});
-}, 5000);
+}, 20000);
 
 
 
