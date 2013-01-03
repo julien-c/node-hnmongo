@@ -4,8 +4,7 @@
   "description": "Feed HN into Mongo",
   "main": "server.js",
   "dependencies": {
-    "redis": "~0.8.2",
-    "mongoose": "~3.5.2"
+    "mongodb": "1.2.x"
   },
   "devDependencies": {},
   "scripts": {

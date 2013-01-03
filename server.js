@@ -1,37 +1,36 @@
 
 
 var http = require('http');
+var mongodb = require('mongodb');
 
 
 
+var MongoClient = require('mongodb').MongoClient;
 
-
-setInterval(function(){
-	http.get("http://localhost:8888/news", function(res) {
-		console.log("Got response: " + res.statusCode);
-		console.log(res.length);
-	}).on('error', function(e) {
-		console.log("Got error: " + e.message);
-	});
+MongoClient.connect("mongodb://localhost:27017/hnmeteor", function(err, db) {
+	if (err) { return console.dir(err); }
 	
-	// redisClient.get('news', function(err, result){
-	// 	if (result) {
-	// 		var news = JSON.parse(result);
-	// 		console.log(news.length);
+	var homepage = db.collection('homepage');
+	
+	setInterval(function(){
+		http.get("http://localhost:8888/news", function(res) {
+			console.log(res.statusCode);
 			
-			
-	// 		// news.forEach(function(item){
-	// 		// 	new News(item).save();
-	// 		// });
-	// 	}
-	// 	else {
-	// 		// If there isn't anything (i.e. the TTL for the Redis value has expired), 
-	// 		// we don't update the Mongo collection.
-	// 		console.log('ERR');
-	// 	}
-	// });
-}, 3000);
-
+			var body = '';
+			res.setEncoding('utf8');
+			res.on('data', function(chunk){
+				body += chunk;
+			});
+			res.on('end', function(){
+				var home = JSON.parse(body);
+				homepage.insert({content: home}, {w:1}, function(err, result) {});
+			});
+		}).on('error', function(e) {
+			console.log("Got error: " + e.message);
+		});
+		
+	}, 10000);
+});
 
 
 
