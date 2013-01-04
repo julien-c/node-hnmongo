@@ -2,6 +2,7 @@
 
 var http = require('http');
 var mongodb = require('mongodb');
+var md5 = require('MD5');
 
 
 
@@ -23,6 +24,7 @@ MongoClient.connect("mongodb://localhost:27017/hnmeteor", function(err, db) {
 				body += chunk;
 			});
 			res.on('end', function(){
+				console.log('Body md5: ', md5(body));
 				var home = JSON.parse(body);
 				homepage.insert({content: home}, {w:1}, function(err, result) {});
 			});
