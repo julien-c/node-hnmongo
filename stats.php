@@ -1,7 +1,10 @@
 <?php
 
+$collection = ($argv[1]) ?: 'homepage';
+
+
 $m = new Mongo();
-$c = $m->hnmeteor->homepage->find();
+$c = $m->hnmeteor->$collection->find();
 
 $i = 0;
 $different = 0;
