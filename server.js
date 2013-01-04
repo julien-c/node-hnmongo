@@ -30,7 +30,7 @@ MongoClient.connect("mongodb://localhost:27017/hnmeteor", function(err, db) {
 			console.log("Got error: " + e.message);
 		});
 		
-		http.get("http://localhost:8888/item/5004294", function(res) {
+		http.get("http://localhost:8888/item/5006967", function(res) {
 			console.log(res.statusCode);
 			
 			var body = '';
